@@ -16,14 +16,6 @@ type RootQuery {
   """Information about the metro lines of the city of Barcelona"""
   metroLines(after: String, first: Int, before: String, last: Int): MetroLineConnection
 
-  """
-  Information about the public bike stations (SMOU) of the city of Barcelona
-  """
-  bikeStations(after: String, first: Int, before: String, last: Int, filterBy: FilterByInputBike): BikeStationConnection
-
-  """Returns the information about a bike station"""
-  bikeStation(findBy: FindByInput!): BikeStationQueryResponse
-
   """Returns the information about a bus stop"""
   busStop(findBy: FindByInput!): BusStopQueryResponse
 
@@ -170,91 +162,6 @@ type MetroLineEdge {
   """A cursor for use in pagination"""
   cursor: String!
 }
-
-"""A connection to a list of items."""
-type BikeStationConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [BikeStationEdge]
-}
-
-"""An edge in a connection."""
-type BikeStationEdge {
-  """The item at the end of the edge"""
-  node: BikeStation
-
-  """A cursor for use in pagination"""
-  cursor: String!
-}
-
-"""Bike station information"""
-type BikeStation {
-  """Unique ID of the station"""
-  id: ID
-
-  """Status of the station e.g. IN_SERVICE"""
-  status: BikeStationStatus
-
-  """Last updated information timestamp (in ms since epoch)"""
-  lastUpdated: Int
-
-  """Name of the station"""
-  name: String
-
-  """Total number of bikes the station has"""
-  capacity: Int
-
-  """Location coordinates of the station"""
-  coordinates: CoordinatesOutput
-
-  """Information about the available bikes and docks of the station"""
-  available: BikeStationAvailabilityInfo
-}
-
-enum BikeStationStatus {
-  IN_SERVICE
-  MAINTENANCE
-  CLOSED
-}
-
-"""Information about the available bikes and docks of the station"""
-type BikeStationAvailabilityInfo {
-  """Number of available bikes in the station by type"""
-  bikes: BikeAvailabilityInfo
-
-  """Number of available docks in the station"""
-  docks: Int
-}
-
-"""Information of the bike availability of a station by type"""
-type BikeAvailabilityInfo {
-  """Number of available electrical bikes in the station"""
-  electrical: Int
-
-  """Number of available mechanical bikes in the station"""
-  mechanical: Int
-
-  """Total number of available bikes in the station"""
-  total: Int
-}
-
-"""
-Input for the filterBy argument of the bikes queries, which allows filtering a connection by some parameters (e.g. only with available bikes)
-"""
-input FilterByInputBike {
-  only: OnlyFilterByInputBike
-}
-
-input OnlyFilterByInputBike {
-  hasAvailableBikes: Boolean
-  hasAvailableElectricalBikes: Boolean
-  isInService: Boolean
-  hasAvailableDocks: Boolean
-}
-
-union BikeStationQueryResponse = BikeStation | NotFoundError
 
 union BusStopQueryResponse = BusStop | NotFoundError
 

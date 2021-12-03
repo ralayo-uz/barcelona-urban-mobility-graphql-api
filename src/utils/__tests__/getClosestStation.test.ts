@@ -1,9 +1,6 @@
 import {
-  getClosestBikeStation,
   getClosestTmbStation,
 } from "../getClosestStation";
-
-import { mockBikeStationsResponse } from "../../datasources/__fixtures__/BikeStationsFixtures";
 
 import {
   mockMetroStationsAPIResponse,
@@ -16,17 +13,6 @@ const nullcoordinates = {
 };
 
 describe("getClosestStation", () => {
-  describe("[getClosestBikeStation]", () => {
-    test.each([
-      [mockBikeStationsResponse[0].coordinates, mockBikeStationsResponse[0]],
-      [mockBikeStationsResponse[1].coordinates, mockBikeStationsResponse[1]],
-      [nullcoordinates, mockBikeStationsResponse[0]],
-    ])("Gets the closest bike station", (coordinates, closestStation) => {
-      expect(getClosestBikeStation(mockBikeStationsResponse, coordinates)).toBe(
-        closestStation
-      );
-    });
-  });
   describe("[getClosestTmbStation]", () => {
     test.each([
       [

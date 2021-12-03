@@ -6,7 +6,7 @@
 
 GraphQL API built using Apollo Server + Typescript that integrates information about the urban mobility services of the city of Barcelona.
 
-It provides information about bus stops and lines, metro stations/lines, and public bikes (Bicing) stations and availability.
+It provides information about bus stops and lines, and metro stations/lines.
 ## GraphQL Playground 🚀
 
 [Barcelona Urban Mobility GraphQL Playground](https://barcelona-urban-mobility-graphql-api.netlify.app/graphql)
@@ -33,15 +33,6 @@ In order to test using Jest, just run `yarn test` or `npm run test`
 
 ### Metro Stations / Bus Stops
 
-For the metro stations and bus stops, we use the public `Transports Metropolitans de Barcelona (TMB)` API, at [https://developer.tmb.cat/](https://developer.tmb.cat/). 
+For the metro stations and bus stops, we use the public `Transports Metropolitans de Barcelona (TMB)` API, at [https://developer.tmb.cat/](https://developer.tmb.cat/).
 
 The `App Key` and `App ID` are passed through the node's `process.env.TMB_API_APP_KEY` and `process.env.TMB_API_APP_ID` and the credentials can be obtained if you log and register an app to the portal.
-
-### Bike Stations
-
-For the bike stations, we use the [BSMSA](https://www.bsmsa.cat/es/) API for smou/bicing. The endpoints are:
-
-```
-https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_information
-https://api.bsmsa.eu/ext/api/bsm/gbfs/v2/en/station_status
-```

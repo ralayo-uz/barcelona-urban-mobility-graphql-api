@@ -22,10 +22,6 @@ export interface RootQueryType {
   metroLine: Maybe<MetroLineQueryResponseType>;
   /** Information about the metro lines of the city of Barcelona */
   metroLines: Maybe<MetroLineConnectionType>;
-  /** Information about the public bike stations (SMOU) of the city of Barcelona */
-  bikeStations: Maybe<BikeStationConnectionType>;
-  /** Returns the information about a bike station */
-  bikeStation: Maybe<BikeStationQueryResponseType>;
   /** Returns the information about a bus stop */
   busStop: Maybe<BusStopQueryResponseType>;
   /** Information about the bus stops of the city of Barcelona */
@@ -65,22 +61,6 @@ export interface RootQueryMetroLinesArgsType {
   first: Maybe<Scalars['Int']>;
   before: Maybe<Scalars['String']>;
   last: Maybe<Scalars['Int']>;
-}
-
-
-/** Root Query */
-export interface RootQueryBikeStationsArgsType {
-  after: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  before: Maybe<Scalars['String']>;
-  last: Maybe<Scalars['Int']>;
-  filterBy: Maybe<FilterByInputBikeType>;
-}
-
-
-/** Root Query */
-export interface RootQueryBikeStationArgsType {
-  findBy: FindByInputType;
 }
 
 
@@ -241,83 +221,6 @@ export interface MetroLineEdgeType {
   /** A cursor for use in pagination */
   cursor: Scalars['String'];
 }
-
-/** A connection to a list of items. */
-export interface BikeStationConnectionType {
-  __typename?: 'BikeStationConnection';
-  /** Information to aid in pagination. */
-  pageInfo: PageInfoType;
-  /** A list of edges. */
-  edges: Maybe<Array<Maybe<BikeStationEdgeType>>>;
-}
-
-/** An edge in a connection. */
-export interface BikeStationEdgeType {
-  __typename?: 'BikeStationEdge';
-  /** The item at the end of the edge */
-  node: Maybe<BikeStationType>;
-  /** A cursor for use in pagination */
-  cursor: Scalars['String'];
-}
-
-/** Bike station information */
-export interface BikeStationType {
-  __typename?: 'BikeStation';
-  /** Unique ID of the station */
-  id: Maybe<Scalars['ID']>;
-  /** Status of the station e.g. IN_SERVICE */
-  status: Maybe<BikeStationStatusType>;
-  /** Last updated information timestamp (in ms since epoch) */
-  lastUpdated: Maybe<Scalars['Int']>;
-  /** Name of the station */
-  name: Maybe<Scalars['String']>;
-  /** Total number of bikes the station has */
-  capacity: Maybe<Scalars['Int']>;
-  /** Location coordinates of the station */
-  coordinates: Maybe<CoordinatesOutputType>;
-  /** Information about the available bikes and docks of the station */
-  available: Maybe<BikeStationAvailabilityInfoType>;
-}
-
-export enum BikeStationStatusType {
-  InServiceType = 'IN_SERVICE',
-  MaintenanceType = 'MAINTENANCE',
-  ClosedType = 'CLOSED'
-}
-
-/** Information about the available bikes and docks of the station */
-export interface BikeStationAvailabilityInfoType {
-  __typename?: 'BikeStationAvailabilityInfo';
-  /** Number of available bikes in the station by type */
-  bikes: Maybe<BikeAvailabilityInfoType>;
-  /** Number of available docks in the station */
-  docks: Maybe<Scalars['Int']>;
-}
-
-/** Information of the bike availability of a station by type */
-export interface BikeAvailabilityInfoType {
-  __typename?: 'BikeAvailabilityInfo';
-  /** Number of available electrical bikes in the station */
-  electrical: Maybe<Scalars['Int']>;
-  /** Number of available mechanical bikes in the station */
-  mechanical: Maybe<Scalars['Int']>;
-  /** Total number of available bikes in the station */
-  total: Maybe<Scalars['Int']>;
-}
-
-/** Input for the filterBy argument of the bikes queries, which allows filtering a connection by some parameters (e.g. only with available bikes) */
-export interface FilterByInputBikeType {
-  only: Maybe<OnlyFilterByInputBikeType>;
-}
-
-export interface OnlyFilterByInputBikeType {
-  hasAvailableBikes: Maybe<Scalars['Boolean']>;
-  hasAvailableElectricalBikes: Maybe<Scalars['Boolean']>;
-  isInService: Maybe<Scalars['Boolean']>;
-  hasAvailableDocks: Maybe<Scalars['Boolean']>;
-}
-
-export type BikeStationQueryResponseType = BikeStationType | NotFoundErrorType;
 
 export type BusStopQueryResponseType = BusStopType | NotFoundErrorType;
 
